@@ -2,16 +2,23 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import pages.*;
 import utils.Constants;
 
 public class BaseTest {
-    @Test
-    public static void goToWebsiteAndVerifyTest() {
-        WebDriver driver = new ChromeDriver();
+    WebDriver driver;
+
+    @BeforeTest
+    public void setUP() {
+        driver = new ChromeDriver();
         driver.manage().window().maximize();
         driver.get(Constants.URL);
+    }
+
+    @Test
+    public void goToWebsiteAndVerifyTest() {
         String actualMessage = driver.findElement(By.xpath("//a[@id='nava']")).getText();
         String expectedMessage = "PRODUCT STORE";
         Assert.assertEquals(actualMessage, expectedMessage);
@@ -23,9 +30,6 @@ public class BaseTest {
 
     @Test
     public void goToWebsiteSignUpTest() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get(Constants.URL);
         SignUpPage signUpPage = new SignUpPage(driver);
         signUpPage.signUpButton();
         signUpPage.waitInSeconds(4);
@@ -38,9 +42,6 @@ public class BaseTest {
 
     @Test
     public void goToLoginTest() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get(Constants.URL);
         HomePage homePage = new HomePage(driver);
         homePage.loginButton();
         homePage.waitInSeconds(4);
@@ -55,9 +56,6 @@ public class BaseTest {
 
     @Test
     public void addProductTest() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get(Constants.URL);
         HomePage homePage = new HomePage(driver);
         homePage.waitInSeconds(5);
         homePage.nextButton();
@@ -73,9 +71,6 @@ public class BaseTest {
 
     @Test
     public void endToEndTest() {
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.get(Constants.URL);
         HomePage homePage = new HomePage(driver);
         homePage.waitInSeconds(5);
         homePage.nextButton();
